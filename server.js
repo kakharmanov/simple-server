@@ -18,7 +18,7 @@ let users = JSON.parse(fs.readFileSync(usersFile, 'utf-8')); // т
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body;
   const user = users.find(
-    (u) => u.username === username && u.password === password,
+    (u) => u.username === username && u.password === password
   );
 
   if (user) {
@@ -94,10 +94,17 @@ app.post('/api/comments', (req, res) => {
     return res.status(400).json({ message: 'Нужны bookId, author и text' });
   }
 
-  const comment = { id: Date.now(), bookId, author, text };
+  const comment = {
+    id: Date.now(),
+    bookId,
+    author,
+    text,
+    date: new Date().toISOString(), // 👈 добавляем дату здесь
+  };
+
   comments.push(comment);
   saveComments();
-  res.json(comment);
+  res.json(comment); // 👈 возвращаем весь объект с датой
 });
 
 app.put('/api/comments/:id', (req, res) => {
