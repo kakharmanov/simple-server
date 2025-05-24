@@ -77,6 +77,20 @@ app.post('/api/create-user', (req, res) => {
   res.status(201).json(safeUser);
 });
 
+app.delete('/api/users/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+
+  const index = users.findIndex((u) => u.id === id);
+  if (index === -1) {
+    return res.status(404).json({ message: 'Пользователь не найден' });
+  }
+
+  users.splice(index, 1); // Удаляем пользователя из массива
+  saveUsers(users); // Сохраняем изменения в файл
+
+  res.json({ message: 'Пользователь удалён' });
+});
+
 function saveUsers(users) {
   fs.writeFileSync(usersFile, JSON.stringify(users, null, 2), 'utf-8');
 }
