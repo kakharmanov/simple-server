@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1748115961469,
+    "username": "admin@example.com",
+    "password": "123",
+    "name": "123",
+    "role": "user",
+    "preferredGenres": [],
+    "favorites": [],
+    "readLater": [],
+    "readBooks": [],
+    "readingProgress": [],
+    "ratings": [],
+    "stats": {
+      "totalBooksRead": 0,
+      "totalPagesRead": 0,
+      "pagesReadByGenre": {}
+    }
+  },
+  {
+    "id": 1748116008156,
+    "username": "admin",
+    "password": "123",
+    "name": "Администратор",
+    "role": "admin",
+    "preferredGenres": [],
+    "favorites": [],
+    "readLater": [],
+    "readBooks": [],
+    "readingProgress": [],
+    "ratings": [],
+    "stats": {
+      "totalBooksRead": 0,
+      "totalPagesRead": 0,
+      "pagesReadByGenre": {}
+    }
+  },
+  {
+    "id": 1748117901296,
+    "username": "shamil@example.com",
+    "password": "123",
+    "name": "Shamil",
+    "role": "admin",
+    "preferredGenres": [],
+    "favorites": [],
+    "readLater": [],
+    "readBooks": [],
+    "readingProgress": [],
+    "ratings": [],
+    "stats": {
+      "totalBooksRead": 0,
+      "totalPagesRead": 0,
+      "pagesReadByGenre": {}
+    }
+  }
+]
