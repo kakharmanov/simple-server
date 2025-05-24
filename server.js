@@ -33,6 +33,10 @@ app.post('/api/login', (req, res) => {
   }
 });
 
+app.get('/api/users', (req, res) => {
+  res.json(users.map(({ password, ...user }) => user)); // не отдаём пароли
+});
+
 app.post('/api/create-user', (req, res) => {
   const { username, password, name, role = 'user' } = req.body;
 
@@ -82,29 +86,37 @@ app.get('/api/books', (req, res) => {
 });
 
 app.get('/api/comments', (req, res) => {
-  const bookId = parseInt(req.query.bookId);
-  const bookComments = comments.filter((c) => c.bookId === bookId);
-  res.json(bookComments);
+  const { bookId } = req.query;
+
+  if (!bookId) {
+    return res.status(400).json({ message: 'Нужен bookId' });
+  }
+
+  const filtered = comments.filter((c) => c.bookId === Number(bookId));
+  res.json(filtered);
 });
 
 app.post('/api/comments', (req, res) => {
-  const { bookId, author, text } = req.body;
+  const { bookId, author, text, userId } = req.body;
 
-  if (!bookId || !author || !text) {
-    return res.status(400).json({ message: 'Нужны bookId, author и text' });
+  if (!bookId || !author || !text || !userId) {
+    return res
+      .status(400)
+      .json({ message: 'Нужны bookId, author, text и userId' });
   }
 
   const comment = {
     id: Date.now(),
     bookId,
+    userId,
     author,
     text,
-    date: new Date().toISOString(), // 👈 добавляем дату здесь
+    date: new Date().toISOString(),
   };
 
   comments.push(comment);
   saveComments();
-  res.json(comment); // 👈 возвращаем весь объект с датой
+  res.json(comment);
 });
 
 app.put('/api/comments/:id', (req, res) => {
